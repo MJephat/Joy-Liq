@@ -65,7 +65,7 @@ const EmptyCartUI = () => (
 			to="/"
 			className="mt-4 inline-block rounded-md bg-yellow-500 px-6 py-2 text-black font-semibold shadow-md hover:bg-yellow-600 transition"
 		>
-			Start Shopping
+			Start Shopping Here
 		</Link>
 	</motion.div>
 );
