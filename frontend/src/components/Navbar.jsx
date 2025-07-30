@@ -21,14 +21,14 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex flex-wrap justify-between items-center">
           {/* Logo */}
-        <div className='flex items-center p-0 m-0'>
-        <img
-          onClick={() => navigate('/')}
-          className='h-20 w-20 object-cover rounded-full cursor-pointer'
-          src={Logo}
-          alt='Logo'
-        />
-        </div>
+          <div className='flex items-center p-0 m-0'>
+            <img
+              onClick={() => navigate('/')}
+              className='h-20 w-20 object-cover rounded-full cursor-pointer'
+              src={Logo}
+              alt='Logo'
+            />
+          </div>
           <Link
             to="/"
             className="text-2xl font-bold text-[#00adef] items-center space-x-2 flex"
@@ -57,6 +57,7 @@ const Navbar = () => {
             </Link>
 
             {user && (
+              <>
               <Link
                 to="/cart"
                 className="relative group text-[#fefefe] hover:text-[#00adef] transition duration-300"
@@ -72,46 +73,56 @@ const Navbar = () => {
                   </span>
                 )}
               </Link>
-            )}
 
-            {isAdmin && (
               <Link
-                to="/secret-dashboard"
-                className="bg-[#00adef] hover:bg-[#0097d1] text-white px-3 py-1 rounded-md font-medium flex items-center"
+                to="/shop"
+                className="relative group text-[#fefefe] hover:text-[#00adef] transition duration-300"
               >
-                <Lock className="inline-block mr-1" size={18} />
-                <span className="hidden sm:inline">Dashboard</span>
+                🛍️ <span className="inline-block mr-1 group-hover:text-[#00adef]">Shop</span>
               </Link>
+              </>
+
             )}
 
-            {user ? (
-              <button
-                className="bg-[#848182] hover:bg-[#989697] text-white py-2 px-4 rounded-md flex items-center"
-                onClick={handleLogout}
+
+          {isAdmin && (
+            <Link
+              to="/secret-dashboard"
+              className="bg-[#00adef] hover:bg-[#0097d1] text-white px-3 py-1 rounded-md font-medium flex items-center"
+            >
+              <Lock className="inline-block mr-1" size={18} />
+              <span className="hidden sm:inline">Dashboard</span>
+            </Link>
+          )}
+
+          {user ? (
+            <button
+              className="bg-[#848182] hover:bg-[#989697] text-white py-2 px-4 rounded-md flex items-center"
+              onClick={handleLogout}
+            >
+              <LogOut size={18} />
+              <span className="hidden sm:inline ml-2">Log Out</span>
+            </button>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className="bg-[#00adef] hover:bg-[#0097d1] text-white py-2 px-4 rounded-md flex items-center"
               >
-                <LogOut size={18} />
-                <span className="hidden sm:inline ml-2">Log Out</span>
-              </button>
-            ) : (
-              <>
-                <Link
-                  to="/signup"
-                  className="bg-[#00adef] hover:bg-[#0097d1] text-white py-2 px-4 rounded-md flex items-center"
-                >
-                  <UserPlus className="mr-2" size={18} /> Sign Up
-                </Link>
-                <Link
-                  to="/login"
-                  className="bg-[#848182] hover:bg-[#989697] text-white py-2 px-4 rounded-md flex items-center"
-                >
-                  <LogIn className="mr-2" size={18} /> Login
-                </Link>
-              </>
-            )}
-          </nav>
-        </div>
+                <UserPlus className="mr-2" size={18} /> Sign Up
+              </Link>
+              <Link
+                to="/login"
+                className="bg-[#848182] hover:bg-[#989697] text-white py-2 px-4 rounded-md flex items-center"
+              >
+                <LogIn className="mr-2" size={18} /> Login
+              </Link>
+            </>
+          )}
+        </nav>
       </div>
-    </header>
+    </div>
+    </header >
   );
 };
 
