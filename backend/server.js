@@ -22,7 +22,7 @@ const __dirname = path.resolve();
 
 app.use(express.json({ limit: "10mb" })); // allows you to parse the body of the request
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
