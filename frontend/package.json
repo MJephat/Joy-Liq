@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "preinstall": "rm -rf node_modules package-lock.json && npm install",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
