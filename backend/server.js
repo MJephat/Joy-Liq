@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import cors from "cors"
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/product.route.js";
 import cartRoutes from "./routes/cart.route.js";
@@ -14,7 +14,10 @@ import analyticsRoutes from "./routes/analytics.route.js";
 import { connectDB } from "./lib/db.js";
 
 dotenv.config();
-
+app.use(cors({
+  origin: "https://double-shasa.onrendr.com"
+  credentials: true,
+}));
 const app = express();
 const PORT = process.env.PORT || 5000;
 
