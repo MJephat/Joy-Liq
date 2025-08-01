@@ -15,8 +15,9 @@ export const useUserStore = create((set, get) => ({
 			return toast.error("Passwords do not match");
 		}
 	
+		
 		try {
-			const res = await axios.post("/auth/signup", { name, email, password });
+			const res = await axios.post("https://shop-zcj5.onrender.com/api/auth/signup", { name, email, password });
 			console.log("Signup Response:", res); // Debugging line
 			set({ user: res.data, loading: false });
 		} catch (error) {
