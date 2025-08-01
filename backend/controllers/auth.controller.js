@@ -2,6 +2,10 @@ import { redis } from "../lib/redis.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
+
+
+
+// ***************************************************************************************
 // Generate tokens
 const generateTokens = (userId) => {
   const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
@@ -35,7 +39,7 @@ const setCookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 *1000,
   });
 };
 
@@ -138,7 +142,7 @@ export const refreshToken = async (req,res) => {
    res.cookie("accessToken", accessToken, {
     httpOnly:true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: "lax",
     maxAge: 15 * 60 * 1000,
 
    });
