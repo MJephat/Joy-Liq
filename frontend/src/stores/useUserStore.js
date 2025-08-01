@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import axios from "../lib/axios";
 import { toast } from "react-hot-toast";
+import instance from "../lib/axios";
 
 export const useUserStore = create((set, get) => ({
 	user: null,
@@ -15,9 +15,9 @@ export const useUserStore = create((set, get) => ({
 			return toast.error("Passwords do not match");
 		}
 	
-		
+
 		try {
-			const res = await axios.post("https://shop-zcj5.onrender.com/api/auth/signup", { name, email, password });
+			const res = await instance.post("/auth/signup", { name, email, password });
 			console.log("Signup Response:", res); // Debugging line
 			set({ user: res.data, loading: false });
 		} catch (error) {
@@ -34,7 +34,7 @@ export const useUserStore = create((set, get) => ({
 		set({ loading: true });
 	
 		try {
-			const res = await axios.post("/auth/login", { email, password });
+			const res = await instance.post("/auth/login", { email, password });
 	
 			// Debugging - Check what the API returns
 			console.log("Login Response:", res.data);
