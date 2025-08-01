@@ -58,7 +58,7 @@ export const useUserStore = create((set, get) => ({
 
 	logout: async (navigate) => {
 		try {
-			await axios.post("/auth/logout");
+			await instance.post("/auth/logout");
 			set({ user: null });
 			navigate("/"); // Redirect to index page after logout
 		} catch (error) {
@@ -69,7 +69,7 @@ export const useUserStore = create((set, get) => ({
 	checkAuth: async () => {
 		set({ checkingAuth: true });
 		try {
-			const response = await axios.get("/auth/profile");
+			const response = await instance.get("/auth/profile");
 			set({ user: response.data, checkingAuth: false });
 		} catch (error) {
 			console.log(error.message);
@@ -83,7 +83,7 @@ export const useUserStore = create((set, get) => ({
 
 		set({ checkingAuth: true });
 		try {
-			const response = await axios.post("/auth/refresh-token");
+			const response = await instance.post("/auth/refresh-token");
 			set({ checkingAuth: false });
 			return response.data;
 		} catch (error) {
@@ -98,7 +98,7 @@ export const useUserStore = create((set, get) => ({
 // Axios interceptor for token refresh
 let refreshPromise = null;
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
 	(response) => response,
 	async (error) => {
 		const originalRequest = error.config;
@@ -109,7 +109,7 @@ axios.interceptors.response.use(
 				// If a refresh is already in progress, wait for it to complete
 				if (refreshPromise) {
 					await refreshPromise;
-					return axios(originalRequest);
+					return instance(originalRequest);
 				}
 
 				// Start a new refresh process
@@ -117,7 +117,7 @@ axios.interceptors.response.use(
 				await refreshPromise;
 				refreshPromise = null;
 
-				return axios(originalRequest);
+				return instance(originalRequest);
 			} catch (refreshError) {
 				// If refresh fails, redirect to login or handle as needed
 				useUserStore.getState().logout();
