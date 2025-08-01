@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://shop-zcj5.onrender.com/"], 
+  origin: "https://shop-zcj5.onrender.com",
   credentials: true,
 }));
 
