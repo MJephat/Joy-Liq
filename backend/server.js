@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: "https://shop-zcj5.onrender.com", // Adjust this to your frontend URL
+  origin: ["https://shop-zcj5.onrender.com"], // Adjust this to your frontend URL
   credentials: true,
 }));
 
@@ -49,6 +49,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`);
+	console.log(`Server is running on port: ${PORT}`);
 	connectDB();
 });
