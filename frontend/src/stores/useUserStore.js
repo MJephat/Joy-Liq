@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import instance from "../lib/axios";
+import axios from "axios";
 
 export const useUserStore = create((set, get) => ({
 	user: null,
@@ -98,7 +99,7 @@ export const useUserStore = create((set, get) => ({
 // Axios interceptor for token refresh
 let refreshPromise = null;
 
-instance.interceptors.response.use(
+axios.interceptors.response.use(
 	(response) => response,
 	async (error) => {
 		const originalRequest = error.config;
@@ -109,7 +110,7 @@ instance.interceptors.response.use(
 				// If a refresh is already in progress, wait for it to complete
 				if (refreshPromise) {
 					await refreshPromise;
-					return instance(originalRequest);
+					return axios(originalRequest);
 				}
 
 				// Start a new refresh process
@@ -117,7 +118,7 @@ instance.interceptors.response.use(
 				await refreshPromise;
 				refreshPromise = null;
 
-				return instance(originalRequest);
+				return axios(originalRequest);
 			} catch (refreshError) {
 				// If refresh fails, redirect to login or handle as needed
 				useUserStore.getState().logout();
